@@ -5,6 +5,7 @@ import { Input, Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { CopyButton } from '@/components/ui/CopyButton';
 import { Plus, Trash2 } from 'lucide-react';
+import { escapeShellArg } from '@/lib/shell';
 
 type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'HEAD' | 'OPTIONS';
 interface Header { key: string; value: string; }
@@ -31,12 +32,12 @@ export function CurlBuilderTool() {
     if (followRedirects) parts.push('-L');
     parts.push(`-X ${method}`);
     for (const h of headers) {
-      if (h.key.trim()) parts.push(`-H '${h.key}: ${h.value}'`);
+      if (h.key.trim()) parts.push(`-H ${escapeShellArg(`${h.key}: ${h.value}`)}`);
     }
     if (body.trim() && !['GET', 'HEAD', 'DELETE'].includes(method)) {
-      parts.push(`-d '${body.replace(/'/g, "\\'")}'`);
+      parts.push(`-d ${escapeShellArg(body)}`);
     }
-    parts.push(`'${url}'`);
+    parts.push(escapeShellArg(url));
     return parts.join(' \\\n  ');
   }, [url, method, headers, body, followRedirects, verbose]);
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Input, Textarea } from '@/components/ui/Input';
 import { Badge } from '@/components/ui/Badge';
 import { Card, CardBody } from '@/components/ui/Card';
@@ -19,14 +19,44 @@ export function RegexTesterTool() {
       return next;
     });
 
-  const result = useMemo(() => {
-    if (!pattern || !testString) return null;
+  const [result, setResult] = useState<{ matches: any[], error: string | null } | null>(null);
+  const workerRef = useRef<Worker | null>(null);
+
+  useEffect(() => {
+    if (!pattern || !testString) {
+      setResult(null);
+      return;
+    }
+    
+    if (workerRef.current) {
+      workerRef.current.terminate();
+    }
+    
     try {
-      const re = new RegExp(pattern, [...flags].join(''));
-      const matches = [...testString.matchAll(new RegExp(pattern, 'g' + [...flags].filter(f => f !== 'g').join('')))];
-      return { matches, error: null };
+      // Validate regex syntactically before worker execution
+      new RegExp(pattern, [...flags].join(''));
+      
+      const worker = new Worker(new URL('./regex.worker.ts', import.meta.url));
+      workerRef.current = worker;
+      
+      const timeout = setTimeout(() => {
+        worker.terminate();
+        setResult({ matches: [], error: 'Regex execution timed out (ReDoS protection)' });
+      }, 1000);
+      
+      worker.onmessage = (e) => {
+        clearTimeout(timeout);
+        setResult(e.data);
+      };
+
+      worker.postMessage({ pattern, flags: [...flags].join(''), testString });
+      
+      return () => {
+        clearTimeout(timeout);
+        worker.terminate();
+      };
     } catch (e: unknown) {
-      return { matches: [], error: e instanceof Error ? e.message : 'Invalid regex' };
+      setResult({ matches: [], error: e instanceof Error ? e.message : 'Invalid regex' });
     }
   }, [pattern, flags, testString]);
 

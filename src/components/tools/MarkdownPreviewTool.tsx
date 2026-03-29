@@ -6,6 +6,7 @@ import { CopyButton } from '@/components/ui/CopyButton';
 import { downloadFile } from '@/lib/utils';
 import { Button } from '@/components/ui/Button';
 import { Download, Eye, Code } from 'lucide-react';
+import DOMPurify from 'dompurify';
 
 const DEFAULT_MD = `# Welcome to Markdown Preview
 
@@ -45,7 +46,7 @@ export function MarkdownPreviewTool() {
   useEffect(() => {
     let cancelled = false;
     import('marked').then(({ marked }) => {
-      if (!cancelled) setHtml(marked(markdown) as string);
+      if (!cancelled) setHtml(DOMPurify.sanitize(marked(markdown) as string));
     });
     return () => { cancelled = true; };
   }, [markdown]);

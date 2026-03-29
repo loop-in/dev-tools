@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { Textarea } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
 import { CopyButton } from '@/components/ui/CopyButton';
 import { Badge } from '@/components/ui/Badge';
 import { downloadFile, formatBytes } from '@/lib/utils';
 import { Download } from 'lucide-react';
+import DOMPurify from 'dompurify';
 
 function optimizeSvg(svg: string): string {
   let result = svg;
@@ -59,6 +60,11 @@ export function SvgOptimizerTool() {
 
   const output = useMemo(() => input.trim() ? optimizeSvg(input) : '', [input]);
 
+  const [sanitizedOutput, setSanitizedOutput] = useState('');
+  useEffect(() => {
+    setSanitizedOutput(DOMPurify.sanitize(output, { USE_PROFILES: { svg: true } }));
+  }, [output]);
+
   const inputSize = new Blob([input]).size;
   const outputSize = new Blob([output]).size;
   const savings = inputSize > 0 ? Math.round((1 - outputSize / inputSize) * 100) : 0;
@@ -96,8 +102,8 @@ export function SvgOptimizerTool() {
         <div>
           <span className="section-label">Preview</span>
           <div className="flex items-center gap-6 p-6 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
-            <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg" dangerouslySetInnerHTML={{ __html: output }} />
-            <div className="bg-zinc-900 dark:bg-zinc-700 p-4 rounded-lg" dangerouslySetInnerHTML={{ __html: output }} />
+            <div className="bg-zinc-100 dark:bg-zinc-800 p-4 rounded-lg" dangerouslySetInnerHTML={{ __html: sanitizedOutput }} />
+            <div className="bg-zinc-900 dark:bg-zinc-700 p-4 rounded-lg" dangerouslySetInnerHTML={{ __html: sanitizedOutput }} />
           </div>
         </div>
       )}
