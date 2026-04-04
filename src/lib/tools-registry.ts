@@ -1,4 +1,4 @@
-import { Tool, ToolCategoryMeta } from '@/types/tool';
+import { Tool, ToolCategory, ToolCategoryMeta } from '@/types/tool';
 
 export const TOOL_CATEGORIES: ToolCategoryMeta[] = [
   {
@@ -30,6 +30,12 @@ export const TOOL_CATEGORIES: ToolCategoryMeta[] = [
     label: 'Design & Frontend',
     description: 'CSS utilities and frontend helpers',
     icon: 'Palette',
+  },
+  {
+    id: 'datetime',
+    label: 'Date & Time',
+    description: 'Timezone conversion, date math, and time formatting tools',
+    icon: 'CalendarDays',
   },
 ];
 
@@ -210,6 +216,56 @@ export const TOOLS: Tool[] = [
     category: 'design-frontend',
     icon: 'ImageDown',
     keywords: ['svg', 'optimize', 'minify', 'vector', 'compress'],
+  },
+
+  // Date & Time
+  {
+    slug: 'timezone-converter',
+    name: 'Timezone Converter',
+    description: 'Convert a time across multiple timezones simultaneously',
+    category: 'datetime',
+    icon: 'Globe2',
+    keywords: ['timezone', 'time zone', 'convert', 'utc', 'gmt', 'dst'],
+  },
+  {
+    slug: 'world-clock',
+    name: 'World Clock',
+    description: 'See the current time across major cities and timezones at a glance',
+    category: 'datetime',
+    icon: 'Clock4',
+    keywords: ['world clock', 'timezone', 'cities', 'current time', 'global'],
+  },
+  {
+    slug: 'date-calculator',
+    name: 'Date Calculator',
+    description: 'Add or subtract days from a date and find the difference between two dates',
+    category: 'datetime',
+    icon: 'CalendarRange',
+    keywords: ['date', 'calculator', 'difference', 'add days', 'subtract', 'duration'],
+  },
+  {
+    slug: 'dst-checker',
+    name: 'DST Checker',
+    description: 'Check if a timezone observes Daylight Saving Time and when it changes',
+    category: 'datetime',
+    icon: 'SunMedium',
+    keywords: ['dst', 'daylight saving', 'summer time', 'timezone', 'clock change'],
+  },
+  {
+    slug: 'date-formatter',
+    name: 'Date Formatter',
+    description: 'Format dates in ISO 8601, RFC 2822, and other standards used in APIs',
+    category: 'datetime',
+    icon: 'CalendarCheck',
+    keywords: ['date format', 'iso 8601', 'rfc 2822', 'strftime', 'moment', 'dayjs'],
+  },
+  {
+    slug: 'week-number',
+    name: 'Week Number',
+    description: 'Find the ISO week number for any date and browse weeks in a year',
+    category: 'datetime',
+    icon: 'CalendarDays',
+    keywords: ['week number', 'iso week', 'week of year', 'calendar week'],
   },
 ];
 

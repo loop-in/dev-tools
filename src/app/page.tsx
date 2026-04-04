@@ -3,7 +3,7 @@ import { TOOLS_BY_CATEGORY } from '@/lib/tools-registry';
 import { SITE_DESCRIPTION } from '@/lib/seo';
 import { ToolCard } from '@/components/tools/ToolCard';
 import {
-  Code2, Globe, ArrowLeftRight, Wand2, Palette,
+  Code2, Globe, ArrowLeftRight, Wand2, Palette, CalendarDays,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -17,6 +17,7 @@ const CATEGORY_ICONS: Record<string, React.ElementType> = {
   'data-conversion': ArrowLeftRight,
   'code-generation': Wand2,
   'design-frontend': Palette,
+  'datetime': CalendarDays,
 };
 
 export default function HomePage() {

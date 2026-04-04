@@ -4,6 +4,7 @@ import {
   KeyRound, Terminal, ServerCrash, Table, Pipette, Clock,
   CalendarClock, Calculator, Fingerprint, AlignLeft, Database,
   GitBranch, BookOpen, Blend, ImageDown, ArrowRight,
+  Globe2, Clock4, CalendarRange, SunMedium, CalendarCheck, CalendarDays,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Tool } from '@/types/tool';
@@ -13,6 +14,7 @@ const ICON_MAP: Record<string, React.ElementType> = {
   KeyRound, Terminal, ServerCrash, Table, Pipette, Clock,
   CalendarClock, Calculator, Fingerprint, AlignLeft, Database,
   GitBranch, BookOpen, Blend, ImageDown,
+  Globe2, Clock4, CalendarRange, SunMedium, CalendarCheck, CalendarDays,
 };
 
 interface ToolCardProps {

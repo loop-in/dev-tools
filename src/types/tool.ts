@@ -3,7 +3,8 @@ export type ToolCategory =
   | 'api-network'
   | 'data-conversion'
   | 'code-generation'
-  | 'design-frontend';
+  | 'design-frontend'
+  | 'datetime';
 
 export interface Tool {
   slug: string;

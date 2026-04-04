@@ -1,6 +1,6 @@
 # DevTools — Developer Utilities Web App
 
-A comprehensive, production-ready Next.js web application featuring 22 developer tools with dark mode, SEO, and mobile support.
+A comprehensive, production-ready Next.js web application featuring 27 developer tools with dark mode, SEO, and mobile support.
 
 ## 🚀 Quick Start
 
@@ -53,28 +53,40 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 - **CSS Gradient Builder** — Visual gradient creator
 - **SVG Optimizer** — Remove unnecessary SVG markup
 
+### Date & Time
+- **Date Calculator** — Calculate future/past dates
+- **Date Formatter** — Format dates in various formats
+- **DST Checker** — Check for Daylight Saving Time
+- **Timezone Converter** — Convert between timezones
+- **Week Number** - Get week number of a date
+- **World Clock** - See the current time across cities
+
 ## 🏗 Architecture
 
 ```
 src/
 ├── app/                    # Next.js App Router
+│   ├── tools/[slug]/       # Dynamic tool pages
 │   ├── layout.tsx          # Root layout with ThemeProvider
-│   ├── page.tsx            # Homepage
 │   ├── not-found.tsx       # 404 page
-│   ├── sitemap.ts          # Auto-generated sitemap
+│   ├── page.tsx            # Homepage
 │   ├── robots.ts           # robots.txt
-│   └── tools/[slug]/       # Dynamic tool pages
+│   ├── sitemap.ts          # Auto-generated sitemap
 ├── components/
-│   ├── ui/                 # Button, Input, Card, Badge, CopyButton
 │   ├── layout/             # Navbar, Footer
-│   └── tools/              # Individual tool components
-├── lib/
-│   ├── tools-registry.ts   # Central tool metadata registry
-│   ├── utils.ts            # Helper utilities
-│   └── seo.ts              # SEO metadata helpers
+│   ├── tools/              # Individual tool components
+│   └── ui/                 # Button, Input, Card, Badge, CopyButton
 ├── hooks/
 │   ├── useCopy.ts          # Clipboard hook
 │   └── useLocalStorage.ts  # Persistent state hook
+├── lib/
+│   ├── seo.ts              # SEO metadata helpers
+│   ├── shell.ts            # Shell utilities
+│   ├── timezones.ts        # Timezone data
+│   ├── tools-registry.ts   # Central tool metadata registry
+│   └── utils.ts            # Helper utilities
+├── styles/                 # Global styles
+├── tests/                  # Unit tests
 └── types/
     └── tool.ts             # TypeScript types
 ```
@@ -93,7 +105,7 @@ src/
 
 ## 🛠 Tech Stack
 
-- [Next.js 14](https://nextjs.org/) — App Router, SSG
+- [Next.js 16](https://nextjs.org/) — App Router, SSG
 - [TypeScript](https://www.typescriptlang.org/) — Strict mode
 - [Tailwind CSS](https://tailwindcss.com/) — Utility-first styling
 - [next-themes](https://github.com/pacocoursey/next-themes) — Dark mode
