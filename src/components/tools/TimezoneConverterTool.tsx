@@ -103,7 +103,7 @@ export function TimezoneConverterTool() {
             className="w-full h-10 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 text-sm text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
             {TIMEZONES.map(z => (
-              <option key={`${z.city}-${z.zone}`} value={z.zone}>{z.city} ({z.country}) — {z.zone}</option>
+              <option key={`${z.city}-${z.zone}`} value={z.zone}>{z.city} ({z.country})</option>
             ))}
           </select>
         </div>
@@ -171,27 +171,29 @@ export function TimezoneConverterTool() {
       </div>
 
       {/* Add timezone */}
-      <div>
-        <label className="section-label">Add Timezone</label>
-        <div className="flex flex-col sm:flex-row gap-2">
-          <select
-            value={customZone}
-            onChange={(e) => setCustomZone(e.target.value)}
-            className="h-10 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 text-sm text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
-          >
-            <option value="">Select a timezone…</option>
-            {TIMEZONES.filter(z => !zones.includes(z.zone) && z.zone !== sourceZone).map(z => (
-              <option key={`${z.city}-${z.zone}`} value={z.zone}>{z.city} ({z.country}) — {z.zone}</option>
-            ))}
-          </select>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={() => addZone(customZone)}
-            disabled={!customZone}
-          >
-            <Plus size={13} /> Add
-          </Button>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="section-label">Add Timezone</label>
+          <div className="flex gap-2">
+            <select
+              value={customZone}
+              onChange={(e) => setCustomZone(e.target.value)}
+              className="w-full h-10 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 px-3 text-sm text-zinc-700 dark:text-zinc-300 focus:outline-none focus:ring-2 focus:ring-brand-500"
+            >
+              <option value="">Select a timezone…</option>
+              {TIMEZONES.filter(z => !zones.includes(z.zone) && z.zone !== sourceZone).map(z => (
+                <option key={`${z.city}-${z.zone}`} value={z.zone}>{z.city} ({z.country})</option>
+              ))}
+            </select>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => addZone(customZone)}
+              disabled={!customZone}
+            >
+              <Plus size={13} />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

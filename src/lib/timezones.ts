@@ -3,33 +3,36 @@ export interface TimezoneMetadata {
   country: string;
   zone: string;
   flag: string;
+  fav?: boolean;
 }
 
 export const TIMEZONES: TimezoneMetadata[] = [
-  { city: 'UTC', country: 'Global', zone: 'UTC', flag: '🌐' },
+  { city: 'UTC', country: 'Global', zone: 'UTC', flag: '🌐', fav: true },
   // North America
-  { city: 'New York', country: 'USA', zone: 'America/New_York', flag: '🇺🇸' },
+  { city: 'New York', country: 'USA', zone: 'America/New_York', flag: '🇺🇸', fav: true },
   { city: 'Los Angeles', country: 'USA', zone: 'America/Los_Angeles', flag: '🇺🇸' },
   { city: 'Chicago', country: 'USA', zone: 'America/Chicago', flag: '🇺🇸' },
   { city: 'Denver', country: 'USA', zone: 'America/Denver', flag: '🇺🇸' },
   { city: 'Phoenix', country: 'USA', zone: 'America/Phoenix', flag: '🇺🇸' },
   { city: 'Anchorage', country: 'USA', zone: 'America/Anchorage', flag: '🇺🇸' },
   { city: 'Honolulu', country: 'USA', zone: 'Pacific/Honolulu', flag: '🇺🇸' },
-  { city: 'Toronto', country: 'Canada', zone: 'America/Toronto', flag: '🇨🇦' },
+  { city: 'Toronto', country: 'Canada', zone: 'America/Toronto', flag: '🇨🇦', fav: true },
   { city: 'Vancouver', country: 'Canada', zone: 'America/Vancouver', flag: '🇨🇦' },
   { city: 'Mexico City', country: 'Mexico', zone: 'America/Mexico_City', flag: '🇲🇽' },
-  
+
   // South America
   { city: 'São Paulo', country: 'Brazil', zone: 'America/Sao_Paulo', flag: '🇧🇷' },
-  { city: 'Rio de Janeiro', country: 'Brazil', zone: 'America/Sao_Paulo', flag: '🇧🇷' },
+  { city: 'Rio de Janeiro', country: 'Brazil', zone: 'America/Sao_Paulo', flag: '🇧🇷', fav: true },
   { city: 'Buenos Aires', country: 'Argentina', zone: 'America/Argentina/Buenos_Aires', flag: '🇦🇷' },
   { city: 'Santiago', country: 'Chile', zone: 'America/Santiago', flag: '🇨🇱' },
   { city: 'Bogotá', country: 'Colombia', zone: 'America/Bogota', flag: '🇨🇴' },
   { city: 'Lima', country: 'Peru', zone: 'America/Lima', flag: '🇵🇪' },
   { city: 'Caracas', country: 'Venezuela', zone: 'America/Caracas', flag: '🇻🇪' },
+  { city: 'Guayaquil', country: 'Ecuador', zone: 'America/Guayaquil', flag: '🇪🇨' },
+  { city: 'Montevideo', country: 'Uruguay', zone: 'America/Montevideo', flag: '🇺🇾' },
 
   // Europe
-  { city: 'London', country: 'UK', zone: 'Europe/London', flag: '🇬🇧' },
+  { city: 'London', country: 'UK', zone: 'Europe/London', flag: '🇬🇧', fav: true },
   { city: 'Paris', country: 'France', zone: 'Europe/Paris', flag: '🇫🇷' },
   { city: 'Berlin', country: 'Germany', zone: 'Europe/Berlin', flag: '🇩🇪' },
   { city: 'Madrid', country: 'Spain', zone: 'Europe/Madrid', flag: '🇪🇸' },
@@ -44,19 +47,25 @@ export const TIMEZONES: TimezoneMetadata[] = [
   { city: 'Copenhagen', country: 'Denmark', zone: 'Europe/Copenhagen', flag: '🇩🇰' },
   { city: 'Helsinki', country: 'Finland', zone: 'Europe/Helsinki', flag: '🇫🇮' },
   { city: 'Athens', country: 'Greece', zone: 'Europe/Athens', flag: '🇬🇷' },
-  { city: 'Moscow', country: 'Russia', zone: 'Europe/Moscow', flag: '🇷🇺' },
+  { city: 'Moscow', country: 'Russia', zone: 'Europe/Moscow', flag: '🇷🇺', fav: true },
   { city: 'Kyiv', country: 'Ukraine', zone: 'Europe/Kyiv', flag: '🇺🇦' },
   { city: 'Istanbul', country: 'Turkey', zone: 'Europe/Istanbul', flag: '🇹🇷' },
   { city: 'Lisbon', country: 'Portugal', zone: 'Europe/Lisbon', flag: '🇵🇹' },
+  { city: 'Dublin', country: 'Ireland', zone: 'Europe/Dublin', flag: '🇮🇪' },
+  { city: 'Prague', country: 'Czech Republic', zone: 'Europe/Prague', flag: '🇨🇿' },
+  { city: 'Budapest', country: 'Hungary', zone: 'Europe/Budapest', flag: '🇭🇺' },
+  { city: 'Bucharest', country: 'Romania', zone: 'Europe/Bucharest', flag: '🇷🇴' },
+  { city: 'Reykjavik', country: 'Iceland', zone: 'Atlantic/Reykjavik', flag: '🇮🇸' },
 
   // Asia
-  { city: 'Tokyo', country: 'Japan', zone: 'Asia/Tokyo', flag: '🇯🇵' },
+  { city: 'Tokyo', country: 'Japan', zone: 'Asia/Tokyo', flag: '🇯🇵', fav: true },
   { city: 'Seoul', country: 'South Korea', zone: 'Asia/Seoul', flag: '🇰🇷' },
   { city: 'Shanghai', country: 'China', zone: 'Asia/Shanghai', flag: '🇨🇳' },
-  { city: 'Beijing', country: 'China', zone: 'Asia/Shanghai', flag: '🇨🇳' },
+  { city: 'Ulaanbaatar', country: 'Mongolia', zone: 'Asia/Ulaanbaatar', flag: '🇲🇳' },
+  { city: 'Beijing', country: 'China', zone: 'Asia/Shanghai', flag: '🇨🇳', fav: true },
   { city: 'Hong Kong', country: 'Hong Kong', zone: 'Asia/Hong_Kong', flag: '🇭🇰' },
   { city: 'Taipei', country: 'Taiwan', zone: 'Asia/Taipei', flag: '🇹🇼' },
-  { city: 'Singapore', country: 'Singapore', zone: 'Asia/Singapore', flag: '🇸🇬' },
+  { city: 'Singapore', country: 'Singapore', zone: 'Asia/Singapore', flag: '🇸🇬', fav: true },
   { city: 'Kuala Lumpur', country: 'Malaysia', zone: 'Asia/Kuala_Lumpur', flag: '🇲🇾' },
   { city: 'Bangkok', country: 'Thailand', zone: 'Asia/Bangkok', flag: '🇹🇭' },
   { city: 'Jakarta', country: 'Indonesia', zone: 'Asia/Jakarta', flag: '🇮🇩' },
@@ -70,23 +79,32 @@ export const TIMEZONES: TimezoneMetadata[] = [
   { city: 'Tehran', country: 'Iran', zone: 'Asia/Tehran', flag: '🇮🇷' },
   { city: 'Karachi', country: 'Pakistan', zone: 'Asia/Karachi', flag: '🇵🇰' },
   { city: 'Dhaka', country: 'Bangladesh', zone: 'Asia/Dhaka', flag: '🇧🇩' },
+  { city: 'Amman', country: 'Jordan', zone: 'Asia/Amman', flag: '🇯🇴' },
+  { city: 'Baghdad', country: 'Iraq', zone: 'Asia/Baghdad', flag: '🇮🇶' },
+  { city: 'Doha', country: 'Qatar', zone: 'Asia/Qatar', flag: '🇶🇦' },
+  { city: 'Colombo', country: 'Sri Lanka', zone: 'Asia/Colombo', flag: '🇱🇰' },
+  { city: 'Kathmandu', country: 'Nepal', zone: 'Asia/Kathmandu', flag: '🇳🇵' },
 
   // Oceania
-  { city: 'Sydney', country: 'Australia', zone: 'Australia/Sydney', flag: '🇦🇺' },
+  { city: 'Sydney', country: 'Australia', zone: 'Australia/Sydney', flag: '🇦🇺', fav: true },
   { city: 'Melbourne', country: 'Australia', zone: 'Australia/Melbourne', flag: '🇦🇺' },
   { city: 'Brisbane', country: 'Australia', zone: 'Australia/Brisbane', flag: '🇦🇺' },
   { city: 'Perth', country: 'Australia', zone: 'Australia/Perth', flag: '🇦🇺' },
   { city: 'Adelaide', country: 'Australia', zone: 'Australia/Adelaide', flag: '🇦🇺' },
-  { city: 'Auckland', country: 'New Zealand', zone: 'Pacific/Auckland', flag: '🇳🇿' },
+  { city: 'Auckland', country: 'New Zealand', zone: 'Pacific/Auckland', flag: '🇳🇿', fav: true },
   { city: 'Suva', country: 'Fiji', zone: 'Pacific/Fiji', flag: '🇫🇯' },
+  { city: 'Wellington', country: 'New Zealand', zone: 'Pacific/Auckland', flag: '🇳🇿' },
+  { city: 'Hobart', country: 'Australia', zone: 'Australia/Hobart', flag: '🇦🇺' },
 
   // Africa
   { city: 'Cairo', country: 'Egypt', zone: 'Africa/Cairo', flag: '🇪🇬' },
-  { city: 'Johannesburg', country: 'South Africa', zone: 'Africa/Johannesburg', flag: '🇿🇦' },
+  { city: 'Johannesburg', country: 'South Africa', zone: 'Africa/Johannesburg', flag: '🇿🇦', fav: true },
   { city: 'Nairobi', country: 'Kenya', zone: 'Africa/Nairobi', flag: '🇰🇪' },
   { city: 'Lagos', country: 'Nigeria', zone: 'Africa/Lagos', flag: '🇳🇬' },
   { city: 'Casablanca', country: 'Morocco', zone: 'Africa/Casablanca', flag: '🇲🇦' },
   { city: 'Accra', country: 'Ghana', zone: 'Africa/Accra', flag: '🇬🇭' },
   { city: 'Addis Ababa', country: 'Ethiopia', zone: 'Africa/Addis_Ababa', flag: '🇪🇹' },
   { city: 'Algiers', country: 'Algeria', zone: 'Africa/Algiers', flag: '🇩🇿' },
+  { city: 'Dakar', country: 'Senegal', zone: 'Africa/Dakar', flag: '🇸🇳' },
+  { city: 'Luanda', country: 'Angola', zone: 'Africa/Luanda', flag: '🇦🇴' },
 ];

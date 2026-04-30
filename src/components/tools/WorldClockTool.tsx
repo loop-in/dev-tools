@@ -33,9 +33,13 @@ export function WorldClockTool() {
     return () => clearInterval(id);
   }, []);
 
-  const filtered = TIMEZONES.filter(c =>
-    !search || c.city.toLowerCase().includes(search.toLowerCase()) || c.country.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = TIMEZONES.filter(c => {
+    if (!search) {
+      return c.fav;
+    }
+
+    return c.city.toLowerCase().includes(search.toLowerCase()) || c.country.toLowerCase().includes(search.toLowerCase());
+  });
 
   return (
     <div className="space-y-5">

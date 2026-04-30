@@ -6,31 +6,118 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 
 type LineType = 'unchanged' | 'added' | 'removed';
-interface DiffLine { type: LineType; text: string; lineA?: number; lineB?: number; }
+interface DiffChunk { type: 'unchanged' | 'added' | 'removed'; text: string; }
+interface DiffLine { type: LineType; text: string; lineA?: number; lineB?: number; chunks?: DiffChunk[]; }
+
+function computeDiffChars(a: string, b: string): DiffChunk[] {
+  const m = a.length, n = b.length;
+  const dp: number[][] = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+  for (let i = m - 1; i >= 0; i--)
+    for (let j = n - 1; j >= 0; j--)
+      dp[i][j] = a[i] === b[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+
+  const result: DiffChunk[] = [];
+  let i = 0, j = 0;
+  while (i < m || j < n) {
+    if (i < m && j < n && a[i] === b[j]) {
+      let text = '';
+      while (i < m && j < n && a[i] === b[j]) { text += a[i++]; j++; }
+      result.push({ type: 'unchanged', text });
+    } else {
+      let moveA = false;
+      if (i < m && j < n) {
+        moveA = dp[i + 1][j] >= dp[i][j + 1];
+      } else if (i < m) {
+        moveA = true;
+      }
+
+      if (moveA) {
+        let text = '';
+        while (i < m && (j >= n || dp[i + 1][j] >= (j < n ? dp[i][j + 1] : -1))) {
+          if (j < n && a[i] === b[j]) break;
+          text += a[i++];
+        }
+        result.push({ type: 'removed', text });
+      } else {
+        let text = '';
+        while (j < n && (i >= m || dp[i][j + 1] > (i < m ? dp[i + 1][j] : -1))) {
+          if (i < m && a[i] === b[j]) break;
+          text += b[j++];
+        }
+        result.push({ type: 'added', text });
+      }
+    }
+  }
+  return result;
+}
 
 function computeDiff(a: string, b: string): DiffLine[] {
   const linesA = a.split('\n');
   const linesB = b.split('\n');
   const result: DiffLine[] = [];
 
-  // Simple LCS-based diff
   const m = linesA.length, n = linesB.length;
   const dp: number[][] = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
   for (let i = m - 1; i >= 0; i--)
     for (let j = n - 1; j >= 0; j--)
       dp[i][j] = linesA[i] === linesB[j] ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
 
-  let i = 0, j = 0, lineA = 1, lineB = 1;
+  let i = 0, j = 0, lineACount = 1, lineBCount = 1;
   while (i < m || j < n) {
     if (i < m && j < n && linesA[i] === linesB[j]) {
-      result.push({ type: 'unchanged', text: linesA[i], lineA: lineA++, lineB: lineB++ });
+      result.push({ type: 'unchanged', text: linesA[i], lineA: lineACount++, lineB: lineBCount++ });
       i++; j++;
-    } else if (j < n && (i >= m || dp[i][j + 1] >= dp[i + 1][j])) {
-      result.push({ type: 'added', text: linesB[j], lineB: lineB++ });
-      j++;
     } else {
-      result.push({ type: 'removed', text: linesA[i], lineA: lineA++ });
-      i++;
+      const removed: string[] = [];
+      const added: string[] = [];
+      
+      // Group contiguous changes into a single block
+      while (i < m || j < n) {
+        if (i < m && j < n && linesA[i] === linesB[j]) break;
+        
+        let moveA = false;
+        if (i < m && j < n) {
+          moveA = dp[i + 1][j] >= dp[i][j + 1];
+        } else if (i < m) {
+          moveA = true;
+        }
+
+        if (moveA) {
+          removed.push(linesA[i++]);
+        } else {
+          added.push(linesB[j++]);
+        }
+      }
+
+      const minLen = Math.min(removed.length, added.length);
+      const tempDiffs: DiffLine[] = [];
+      
+      // Pair removed and added lines for character diff
+      for (let k = 0; k < minLen; k++) {
+        const charDiff = computeDiffChars(removed[k], added[k]);
+        tempDiffs.push({
+          type: 'removed',
+          text: removed[k],
+          lineA: lineACount++,
+          chunks: charDiff.filter((c: DiffChunk) => c.type !== 'added')
+        });
+      }
+      for (let k = minLen; k < removed.length; k++) {
+        tempDiffs.push({ type: 'removed', text: removed[k], lineA: lineACount++ });
+      }
+      for (let k = 0; k < minLen; k++) {
+        const charDiff = computeDiffChars(removed[k], added[k]);
+        tempDiffs.push({
+          type: 'added',
+          text: added[k],
+          lineB: lineBCount++,
+          chunks: charDiff.filter((c: DiffChunk) => c.type !== 'removed')
+        });
+      }
+      for (let k = minLen; k < added.length; k++) {
+        tempDiffs.push({ type: 'added', text: added[k], lineB: lineBCount++ });
+      }
+      result.push(...tempDiffs);
     }
   }
   return result;
@@ -56,7 +143,7 @@ export function DiffCheckerTool() {
   const lineClasses: Record<LineType, string> = {
     unchanged: 'text-zinc-700 dark:text-zinc-300',
     added: 'bg-green-50 dark:bg-green-950/30 text-green-800 dark:text-green-300',
-    removed: 'bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-300 line-through opacity-70',
+    removed: 'bg-red-50 dark:bg-red-950/30 text-red-800 dark:text-red-300 opacity-80',
   };
 
   const linePrefix: Record<LineType, string> = {
@@ -117,7 +204,26 @@ export function DiffCheckerTool() {
                     <td className="w-6 px-2 py-0.5 text-center select-none font-bold">
                       {linePrefix[line.type]}
                     </td>
-                    <td className="px-3 py-0.5 whitespace-pre-wrap">{line.text || ' '}</td>
+                    <td className="px-3 py-0.5 whitespace-pre-wrap">
+                      {line.chunks ? (
+                        line.chunks.map((chunk: DiffChunk, j: number) => (
+                          <span
+                            key={j}
+                            className={
+                              chunk.type === 'added' 
+                                ? 'bg-green-200 dark:bg-green-700/50 rounded-sm' 
+                                : chunk.type === 'removed' 
+                                  ? 'bg-red-200 dark:bg-red-700/50 rounded-sm' 
+                                  : ''
+                            }
+                          >
+                            {chunk.text}
+                          </span>
+                        ))
+                      ) : (
+                        line.text || ' '
+                      )}
+                    </td>
                   </tr>
                 ))}
               </tbody>
