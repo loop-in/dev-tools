@@ -62,6 +62,7 @@ export function DstCheckerTool() {
   const now = new Date();
   const currentOffset = useMemo(() => getUtcOffset(now, zone), [zone]);
   const dst = useMemo(() => getDstTransitions(zone, year), [zone, year]);
+  const selectedTz = useMemo(() => TIMEZONES.find(t => t.zone === zone), [zone]);
 
   const observesDst = dst.start !== null;
   const currentlyInDst = observesDst && currentOffset === dst.dstOffset;
@@ -100,8 +101,13 @@ export function DstCheckerTool() {
         }`}>
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100" style={{ fontFamily: 'var(--font-display)' }}>
+            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2" style={{ fontFamily: 'var(--font-display)' }}>
               {zone}
+              {selectedTz?.windowsZoneId && (
+                <span className="text-xs font-normal font-sans bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700">
+                  {selectedTz.windowsZoneId}
+                </span>
+              )}
             </h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
               Current offset: <span className="font-mono font-semibold text-zinc-700 dark:text-zinc-300">{formatOffset(currentOffset)}</span>

@@ -7,7 +7,7 @@ import { CopyButton } from '@/components/ui/CopyButton';
 import { Plus, Trash2, RefreshCw } from 'lucide-react';
 import { TIMEZONES } from '@/lib/timezones';
 
-const ZONE_LABELS = Object.fromEntries(TIMEZONES.map(z => [z.zone, z.city]));
+const ZONE_METADATA = Object.fromEntries(TIMEZONES.map(z => [z.zone, z]));
 
 function formatInZone(date: Date, zone: string): { time: string; date: string; offset: string; abbr: string } {
   const timeStr = new Intl.DateTimeFormat('en-US', {
@@ -139,15 +139,20 @@ export function TimezoneConverterTool() {
                   } transition-colors`}
               >
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-                      {ZONE_LABELS[zone] ?? zone}
+                      {ZONE_METADATA[zone]?.city ?? zone}
                     </span>
+                    {ZONE_METADATA[zone]?.windowsZoneId && (
+                      <span className="text-[10px] sm:text-xs font-normal font-sans bg-zinc-200 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 px-1.5 py-0.5 rounded border border-zinc-300 dark:border-zinc-700 whitespace-nowrap">
+                        {ZONE_METADATA[zone].windowsZoneId}
+                      </span>
+                    )}
                     {isSource && (
                       <span className="text-xs px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300 font-medium">source</span>
                     )}
                   </div>
-                  <div className="text-xs text-zinc-400 font-mono">{zone} · {fmt.offset} · {fmt.abbr}</div>
+                  <div className="text-xs text-zinc-400 font-mono mt-1">{zone} · {fmt.offset} · {fmt.abbr}</div>
                 </div>
                 <div className="text-right shrink-0">
                   <div className="text-lg font-bold font-mono text-zinc-900 dark:text-zinc-100 tabular-nums">{fmt.time}</div>
