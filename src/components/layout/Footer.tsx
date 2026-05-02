@@ -14,7 +14,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 font-bold text-zinc-900 dark:text-zinc-100 mb-3">
               <Terminal size={18} className="text-brand-500" />
-              <span style={{ fontFamily: 'var(--font-display)' }}>DevTools</span>
+              <span style={{ fontFamily: 'var(--font-display)' }}>DevUtils</span>
             </div>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
               Free, fast developer utilities. No sign-up required.
@@ -79,7 +79,7 @@ export function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-zinc-100 dark:border-zinc-800 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-zinc-400">© {new Date().getFullYear()} DevTools. All rights reserved.</p>
+          <p className="text-xs text-zinc-400">© {new Date().getFullYear()} DevUtils. All rights reserved.</p>
           <p className="text-xs text-zinc-400">Built with Next.js · Tailwind CSS</p>
         </div>
       </div>

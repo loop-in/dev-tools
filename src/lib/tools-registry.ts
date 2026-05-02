@@ -1,4 +1,4 @@
-import { Tool, ToolCategory, ToolCategoryMeta } from '@/types/tool';
+import { Tool, ToolCategoryMeta } from '@/types/tool';
 
 export const TOOL_CATEGORIES: ToolCategoryMeta[] = [
   {

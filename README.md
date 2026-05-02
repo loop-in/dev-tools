@@ -1,4 +1,4 @@
-# DevTools — Developer Utilities Web App
+# DevUtils — Developer Utilities Web App
 
 A comprehensive, production-ready Next.js web application featuring 27 developer tools with dark mode, SEO, and mobile support.
 

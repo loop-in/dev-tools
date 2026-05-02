@@ -7,7 +7,7 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'DevTools — Free Developer Utilities',
+  title: 'DevUtils — Free Developer Utilities',
   description: SITE_DESCRIPTION,
 };
 

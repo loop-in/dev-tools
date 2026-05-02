@@ -18,7 +18,7 @@ function generateUuidV4(): string {
 function generateUuidV1(): string {
   const now = Date.now();
   const timeHigh = Math.floor(now / 0x100000000);
-  const timeLow = now & 0xffffffff;
+  const timeLow = now >>> 0;
   const clockSeq = (Math.random() * 0x3fff) | 0x8000;
   const node = Array.from({ length: 6 }, () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0')).join('');
   return [

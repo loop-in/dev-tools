@@ -32,20 +32,28 @@ function getRelative(ts: number): string {
 }
 
 export function TimestampConverterTool() {
-  const [tsInput, setTsInput] = useState(() => Math.floor(Date.now() / 1000).toString());
+  const [isMounted, setIsMounted] = useState(false);
+  const [tsInput, setTsInput] = useState('');
   const [dateInput, setDateInput] = useState('');
   const [error, setError] = useState('');
 
+  useEffect(() => {
+    setIsMounted(true);
+    setTsInput(Math.floor(Date.now() / 1000).toString());
+  }, []);
+
   const ts = parseInt(tsInput);
   const validTs = !isNaN(ts) && ts > 0;
-  const formats = validTs ? getFormats(ts) : [];
+  const formats = (isMounted && validTs) ? getFormats(ts) : [];
 
   useEffect(() => {
-    if (validTs) {
+    if (isMounted && validTs) {
       const d = new Date(ts * 1000);
-      setDateInput(d.toISOString().slice(0, 16));
+      const tzOffset = d.getTimezoneOffset() * 60000;
+      const localISOTime = new Date(d.getTime() - tzOffset).toISOString().slice(0, 16);
+      setDateInput(localISOTime);
     }
-  }, [tsInput, ts, validTs]);
+  }, [tsInput, ts, validTs, isMounted]);
 
   function setNow() {
     setTsInput(Math.floor(Date.now() / 1000).toString());

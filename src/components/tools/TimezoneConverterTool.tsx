@@ -27,15 +27,15 @@ function formatInZone(date: Date, zone: string): { time: string; date: string; o
   }).format(date);
 
   // Get UTC offset
-  const offsetMinutes = -new Date(
-    new Intl.DateTimeFormat('en-CA', { timeZone: zone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(date) +
-    'T' +
-    new Intl.DateTimeFormat('en-GB', { timeZone: zone, hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(date)
-  ).getTimezoneOffset();
-
-  const sign = offsetMinutes >= 0 ? '+' : '-';
-  const absMin = Math.abs(offsetMinutes);
-  const offsetStr = `UTC${sign}${String(Math.floor(absMin / 60)).padStart(2, '0')}:${String(absMin % 60).padStart(2, '0')}`;
+  const offsetPart = new Intl.DateTimeFormat('en-US', {
+    timeZone: zone,
+    timeZoneName: 'longOffset',
+  }).formatToParts(date).find(p => p.type === 'timeZoneName')?.value;
+  
+  let offsetStr = 'UTC+00:00';
+  if (offsetPart && offsetPart !== 'GMT') {
+    offsetStr = offsetPart.replace('GMT', 'UTC');
+  }
 
   const abbr = new Intl.DateTimeFormat('en-US', {
     timeZone: zone,
@@ -64,13 +64,29 @@ export function TimezoneConverterTool() {
 
   const sourceDate = useMemo(() => {
     try {
+      if (!inputTime) return new Date();
       // Parse the local datetime-local input as if it's in sourceZone
       const [datePart, timePart] = inputTime.split('T');
-      // Use Intl to create a date in the source timezone
       const isoString = `${datePart}T${timePart}:00`;
-      // We need to find what UTC time corresponds to this local time in sourceZone
-      const utcDate = new Date(isoString + 'Z');
-      return utcDate;
+      
+      const guess = new Date(`${isoString}Z`);
+      const getOffset = (d: Date) => {
+        const part = new Intl.DateTimeFormat('en-US', {
+          timeZone: sourceZone,
+          timeZoneName: 'longOffset',
+        }).formatToParts(d).find(p => p.type === 'timeZoneName')?.value;
+        return part === 'GMT' || !part ? 'Z' : part.replace('GMT', '');
+      };
+
+      const offsetStr1 = getOffset(guess);
+      let d = new Date(`${isoString}${offsetStr1}`);
+      
+      const offsetStr2 = getOffset(d);
+      if (offsetStr1 !== offsetStr2) {
+        d = new Date(`${isoString}${offsetStr2}`);
+      }
+      
+      return isNaN(d.getTime()) ? new Date() : d;
     } catch {
       return new Date();
     }
@@ -133,7 +149,7 @@ export function TimezoneConverterTool() {
             return (
               <div
                 key={zone}
-                className={`flex items-center gap-4 px-4 py-3 ${isSource
+                className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 px-4 py-3 ${isSource
                   ? 'bg-brand-50 dark:bg-brand-950/30'
                   : 'bg-white dark:bg-zinc-900 hover:bg-zinc-50 dark:hover:bg-zinc-800'
                   } transition-colors`}
@@ -154,20 +170,22 @@ export function TimezoneConverterTool() {
                   </div>
                   <div className="text-xs text-zinc-400 font-mono mt-1">{zone} · {fmt.offset} · {fmt.abbr}</div>
                 </div>
-                <div className="text-right shrink-0">
-                  <div className="text-lg font-bold font-mono text-zinc-900 dark:text-zinc-100 tabular-nums">{fmt.time}</div>
-                  <div className="text-xs text-zinc-400">{fmt.date}</div>
-                </div>
-                <div className="flex items-center gap-1 shrink-0">
-                  <CopyButton text={`${fmt.date} ${fmt.time} ${fmt.abbr}`} size="sm" />
-                  {!isSource && (
-                    <button
-                      onClick={() => removeZone(zone)}
-                      className="p-1.5 rounded text-zinc-300 hover:text-red-500 dark:text-zinc-600 dark:hover:text-red-400 transition-colors"
-                    >
-                      <Trash2 size={13} />
-                    </button>
-                  )}
+                <div className="flex items-center justify-between sm:justify-end gap-4 shrink-0 mt-1 sm:mt-0">
+                  <div className="text-left sm:text-right">
+                    <div className="text-lg font-bold font-mono text-zinc-900 dark:text-zinc-100 tabular-nums">{fmt.time}</div>
+                    <div className="text-xs text-zinc-400">{fmt.date}</div>
+                  </div>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <CopyButton text={`${fmt.date} ${fmt.time} ${fmt.abbr}`} size="sm" />
+                    {!isSource && (
+                      <button
+                        onClick={() => removeZone(zone)}
+                        className="p-1.5 rounded text-zinc-300 hover:text-red-500 dark:text-zinc-600 dark:hover:text-red-400 transition-colors"
+                      >
+                        <Trash2 size={13} />
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             );

@@ -70,7 +70,7 @@ export function Navbar() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 font-display font-bold text-zinc-900 dark:text-zinc-100 shrink-0">
           <Terminal size={20} className="text-brand-500" />
-          <span className="text-lg hidden sm:block" style={{ fontFamily: 'var(--font-display)' }}>DevTools</span>
+          <span className="text-lg hidden sm:block" style={{ fontFamily: 'var(--font-display)' }}>DevUtils</span>
         </Link>
 
         {/* Search */}
