@@ -3,7 +3,7 @@ import { Terminal } from 'lucide-react';
 import { TOOL_CATEGORIES, TOOLS } from '@/lib/tools-registry';
 
 export function Footer() {
-  const featured = TOOLS.slice(0, 8);
+  const featured = TOOLS.filter((t) => t.isPopular).slice(0, 8);
 
   return (
     <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 mt-16">

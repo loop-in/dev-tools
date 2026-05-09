@@ -1,10 +1,11 @@
 export type ToolCategory =
-  | 'code-text'
+  | 'format-validate'
+  | 'encode-decode'
+  | 'design-ui'
   | 'api-network'
-  | 'data-conversion'
-  | 'code-generation'
-  | 'design-frontend'
-  | 'datetime';
+  | 'datetime'
+  | 'data-math'
+  | 'generators';
 
 export interface Tool {
   slug: string;
@@ -13,6 +14,7 @@ export interface Tool {
   category: ToolCategory;
   icon: string;
   keywords: string[];
+  isPopular?: boolean;
 }
 
 export interface ToolCategoryMeta {

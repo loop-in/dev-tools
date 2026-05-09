@@ -12,6 +12,7 @@ import { DateCalculatorTool } from '@/components/tools/DateCalculatorTool';
 import { DateFormatterTool } from '@/components/tools/DateFormatterTool';
 import { DiffCheckerTool } from '@/components/tools/DiffCheckerTool';
 import { DstCheckerTool } from '@/components/tools/DstCheckerTool';
+import { FrontendPlaygroundTool } from '@/components/tools/FrontendPlaygroundTool';
 import { GitignoreGeneratorTool } from '@/components/tools/GitignoreGeneratorTool';
 import { HashGeneratorTool } from '@/components/tools/HashGeneratorTool';
 import { HttpStatusTool } from '@/components/tools/HttpStatusTool';
@@ -64,6 +65,7 @@ const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
   'date-formatter': DateFormatterTool,
   'diff-checker': DiffCheckerTool,
   'dst-checker': DstCheckerTool,
+  'frontend-playground': FrontendPlaygroundTool,
   'gitignore-generator': GitignoreGeneratorTool,
   'hash-generator': HashGeneratorTool,
   'http-status': HttpStatusTool,

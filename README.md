@@ -1,6 +1,6 @@
 # DevUtils — Developer Utilities Web App
 
-A comprehensive, production-ready Next.js web application featuring 27 developer tools with dark mode, SEO, and mobile support.
+A comprehensive, production-ready Next.js web application featuring 28 developer tools with dark mode, SEO, and mobile support.
 
 ## 🚀 Quick Start
 
@@ -22,44 +22,47 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 🛠 Tools Included
 
-### Code & Text
-- **JSON Formatter** — Format, validate, and minify JSON
-- **Regex Tester** — Live regex matching with match highlighting
-- **Base64 Encoder/Decoder** — Standard and URL-safe Base64
-- **Hash Generator** — MD5, SHA-1, SHA-256, SHA-512
-- **Diff Checker** — Side-by-side text comparison
-- **Markdown Preview** — Live Markdown rendering
+### Format & Validate
+- **JSON Formatter** — Format, validate, and minify JSON with syntax highlighting
+- **SQL Formatter** — Beautify and format SQL queries for readability
+- **Diff Checker** — Compare two blocks of text and highlight differences
+- **Regex Tester** — Test regular expressions with live match highlighting
+- **Markdown Preview** — Write Markdown and preview the rendered output live
 
-### API & Network
-- **JWT Decoder** — Decode and inspect JSON Web Tokens
-- **cURL Builder** — Visual cURL command generator
-- **HTTP Status Codes** — Searchable reference guide
+### Date, Time & Scheduling
+- **Timezone Converter** — Convert a time across multiple timezones simultaneously
+- **Unix Timestamp Converter** — Convert between Unix timestamps and human-readable dates
+- **Cron Expression Builder** — Build and explain cron expressions visually
+- **World Clock** — See the current time across major cities and timezones at a glance
+- **Date Calculator** — Add or subtract days from a date and find the difference between two dates
+- **DST Checker** — Check if a timezone observes Daylight Saving Time and when it changes
+- **Date Formatter** — Format dates in ISO 8601, RFC 2822, and other standards used in APIs
+- **Week Number** — Find the ISO week number for any date and browse weeks in a year
 
-### Data & Conversion
-- **CSV ↔ JSON Converter** — Bidirectional data format conversion
-- **Color Converter** — HEX, RGB, HSL conversion
-- **Unix Timestamp Converter** — Human-readable date utilities
-- **Cron Expression Builder** — Visual cron scheduler
-- **Number Base Converter** — Binary, Octal, Decimal, Hex
+### Security & Encoders
+- **Base64 Encoder / Decoder** — Encode and decode Base64 and URL-safe Base64 strings
+- **Hash Generator** — Generate MD5, SHA-1, SHA-256, SHA-512 hashes
+- **JWT Decoder** — Decode and inspect JSON Web Token header, payload, and signature
 
-### Code Generation
-- **UUID Generator** — v1 and v4 UUIDs in bulk
-- **Lorem Ipsum Generator** — Placeholder text
-- **SQL Formatter** — Beautify SQL queries
-- **.gitignore Generator** — Templates for popular stacks
-- **README Generator** — Project documentation templates
+### Web & Network
+- **cURL Command Builder** — Build cURL commands visually with headers, body, and auth
+- **HTTP Status Codes** — Reference guide for all HTTP status codes with descriptions
 
-### Design & Frontend
-- **CSS Gradient Builder** — Visual gradient creator
-- **SVG Optimizer** — Remove unnecessary SVG markup
+### Generators
+- **UUID Generator** — Generate UUIDs (v1, v4) and random strings in bulk
+- **Lorem Ipsum Generator** — Generate placeholder text for UI mockups and prototypes
+- **.gitignore Generator** — Generate .gitignore templates for popular languages and frameworks
+- **README Generator** — Generate professional README.md templates for your projects
 
-### Date & Time
-- **Date Calculator** — Calculate future/past dates
-- **Date Formatter** — Format dates in various formats
-- **DST Checker** — Check for Daylight Saving Time
-- **Timezone Converter** — Convert between timezones
-- **Week Number** - Get week number of a date
-- **World Clock** - See the current time across cities
+### Design & UI
+- **HTML/CSS/JS Playground** — Simulate, write, and preview HTML, CSS, and JavaScript in real-time
+- **Color Converter** — Convert between HEX, RGB, HSL, and HSV color formats
+- **CSS Gradient Builder** — Build and preview CSS linear and radial gradients visually
+- **SVG Optimizer** — Optimize SVG code by removing unnecessary markup and whitespace
+
+### Data & Math
+- **CSV ↔ JSON Converter** — Convert between CSV and JSON formats bidirectionally
+- **Number Base Converter** — Convert between binary, octal, decimal, and hexadecimal
 
 ## 🏗 Architecture
 

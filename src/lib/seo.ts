@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 const SITE_NAME = 'DevUtils';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://developerutils.vercel.app';
 const SITE_DESCRIPTION =
-  'A comprehensive suite of free developer tools — JSON formatter, regex tester, JWT decoder, UUID generator, and 20+ more utilities.';
+  'A comprehensive suite of free developer tools — HTML/CSS/JS playground, JSON formatter, regex tester, JWT decoder, UUID generator, and 20+ more utilities.';
 
 interface PageMetaOptions {
   title: string;

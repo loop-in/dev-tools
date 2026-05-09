@@ -3,7 +3,7 @@ import { TOOLS_BY_CATEGORY } from '@/lib/tools-registry';
 import { SITE_DESCRIPTION } from '@/lib/seo';
 import { ToolCard } from '@/components/tools/ToolCard';
 import {
-  Code2, Globe, ArrowLeftRight, Wand2, Palette, CalendarDays,
+  CheckSquare, Shield, Palette, Globe, CalendarDays, ArrowLeftRight, Wand2,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -12,12 +12,13 @@ export const metadata: Metadata = {
 };
 
 const CATEGORY_ICONS: Record<string, React.ElementType> = {
-  'code-text': Code2,
+  'format-validate': CheckSquare,
+  'encode-decode': Shield,
+  'design-ui': Palette,
   'api-network': Globe,
-  'data-conversion': ArrowLeftRight,
-  'code-generation': Wand2,
-  'design-frontend': Palette,
   'datetime': CalendarDays,
+  'data-math': ArrowLeftRight,
+  'generators': Wand2,
 };
 
 export default function HomePage() {
@@ -42,7 +43,7 @@ export default function HomePage() {
             <span className="text-brand-500">All in One Place</span>
           </h1>
           <p className="mt-4 max-w-xl mx-auto text-base text-zinc-500 dark:text-zinc-400">
-            Format JSON, decode JWTs, build cURL commands, generate UUIDs — fast, free, and client-side.
+            Format JSON, write HTML/CSS/JS, decode JWTs, build cURL commands, generate UUIDs — fast, free, and client-side.
           </p>
         </div>
       </section>
@@ -50,7 +51,7 @@ export default function HomePage() {
       {/* Tool categories */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 py-12 space-y-14">
         {TOOLS_BY_CATEGORY.map((cat) => {
-          const Icon = CATEGORY_ICONS[cat.id] ?? Code2;
+          const Icon = CATEGORY_ICONS[cat.id] ?? CheckSquare;
           return (
             <div key={cat.id} id={cat.id}>
               {/* Category header */}
