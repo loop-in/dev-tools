@@ -3,6 +3,7 @@ import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/seo';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { Analytics } from '@vercel/analytics/react';
 import '@/styles/globals.css';
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
