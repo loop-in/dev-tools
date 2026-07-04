@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import {
-  Braces, Regex, Binary, Hash, GitCompare, FileText,
+  Braces, Regex, Binary, Hash, GitCompare, FileText, FileCode,
   KeyRound, Terminal, ServerCrash, Table, Pipette, Clock,
   CalendarClock, Calculator, Fingerprint, AlignLeft, Database,
   GitBranch, BookOpen, Blend, ImageDown, ArrowRight,
@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 import type { Tool } from '@/types/tool';
 
 const ICON_MAP: Record<string, React.ElementType> = {
-  Braces, Regex, Binary, Hash, GitCompare, FileText,
+  Braces, Regex, Binary, Hash, GitCompare, FileText, FileCode,
   KeyRound, Terminal, ServerCrash, Table, Pipette, Clock,
   CalendarClock, Calculator, Fingerprint, AlignLeft, Database,
   GitBranch, BookOpen, Blend, ImageDown,

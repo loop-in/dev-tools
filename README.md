@@ -115,3 +115,32 @@ src/
 - [lucide-react](https://lucide.dev/) — Icons
 - [marked](https://marked.js.org/) — Markdown parsing
 
+## 🌐 Deployment
+
+This project can be deployed using the **Vercel CLI**:
+
+1. **Install Vercel CLI** (if not already installed globally):
+   ```bash
+   npm i -g vercel
+   ```
+
+2. **Authenticate with Vercel:**
+   ```bash
+   vercel login
+   ```
+   Follow the prompts to log in to your Vercel account.
+
+3. **Deploy to Preview** (Staging/Development):
+   ```bash
+   vercel
+   ```
+   *(Note: If the directory is already linked to a Vercel project, it will deploy automatically. If you want to link it to a different or personal account, run `vercel link` or delete the `.vercel` directory and run `vercel` to configure.)*
+
+4. **Deploy to Production:**
+   ```bash
+   vercel --prod
+   ```
+
+Alternatively, connect your Git repository to Vercel for automated continuous deployment (CD) on every push.
+
+

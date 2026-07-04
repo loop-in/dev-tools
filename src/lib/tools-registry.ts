@@ -65,6 +65,14 @@ export const TOOLS: Tool[] = [
     keywords: ['sql', 'format', 'query', 'beautify', 'database'],
   },
   {
+    slug: 'xml-formatter',
+    name: 'XML Formatter',
+    description: 'Format, validate, and minify XML documents for readability',
+    category: 'format-validate',
+    icon: 'FileCode',
+    keywords: ['xml', 'format', 'validate', 'minify', 'pretty print'],
+  },
+  {
     slug: 'diff-checker',
     name: 'Diff Checker',
     description: 'Compare two blocks of text and highlight differences',

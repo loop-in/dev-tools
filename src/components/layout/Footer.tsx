@@ -20,7 +20,7 @@ export function Footer() {
               Free, fast developer utilities. No sign-up required.
             </p>
             <a
-              href="https://github.com"
+              href="https://github.com/loop-in/dev-tools"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"

@@ -30,6 +30,7 @@ import { ToolShell } from '@/components/tools/ToolShell';
 import { UuidGeneratorTool } from '@/components/tools/UuidGeneratorTool';
 import { WeekNumberTool } from '@/components/tools/WeekNumberTool';
 import { WorldClockTool } from '@/components/tools/WorldClockTool';
+import { XmlFormatterTool } from '@/components/tools/XmlFormatterTool';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -82,6 +83,7 @@ const TOOL_COMPONENTS: Record<string, React.ComponentType> = {
   'uuid-generator': UuidGeneratorTool,
   'week-number': WeekNumberTool,
   'world-clock': WorldClockTool,
+  'xml-formatter': XmlFormatterTool,
 };
 
 export default async function ToolPage({ params }: PageProps) {
